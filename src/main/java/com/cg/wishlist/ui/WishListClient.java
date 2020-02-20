@@ -1,6 +1,6 @@
 package com.cg.wishlist.ui;
 
-import java.awt.List;
+import java.util.List;
 import java.util.Scanner;
 
 import com.cg.wishlist.bean.WishList;
@@ -9,14 +9,14 @@ import com.cg.wishlist.service.WishListService;
 import com.cg.wishlist.service.WishListServiceImpl;
 
 public class WishListClient {
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		Scanner sc = new Scanner(System.in);
-		WishListService productService = new WishListServiceImpl();
+	    WishListService wlService = new WishListServiceImpl();
 		
-		// TODO Auto-generated method stub
-		int choice=0;
-		WishList product=null;
-		List<WishList> list=null;
+		int choice = 0;
+		WishList wl = null;
+		List<WishList> list = null;
 		while(true)
 		{
 			System.out.println("1.Add product to wishlist");
@@ -28,43 +28,40 @@ public class WishListClient {
 			switch(choice)
 			{
 			case 1:
-				System.out.println("enter product id");
-				int pid=sc.nextInt();
-			product =new WishList();
-			product.setProductId(pid);
-			try
-			{
-				int id=productService.addToWishList(product);
-				System.out.println("ProductId="+id);
-			}
-			catch(WishListException e)
-			{
-			System.err.println(e.getMessage());
-			}
-			break;
+				System.out.println("Enter Product ID : ");
+			    int pid = sc.nextInt();
+				wl = new WishList();
+				wl.setProductId(pid);
+				try
+				{
+				int id = wlService.addProductToWishList(wl);
+				System.out.println("Product Id = "+id+ " succesfully added to wishlist");
+				}
+				catch(WishListException e)
+				{
+					System.err.println(e.getMessage());
+				}
+				break;
 			case 2:
 				try
 				{
-				System.out.println("enter wishlist id");
-				int id1=sc.nextInt();
-				product=productService.deleteProductByIdInWishList(id1);
-				System.out.println("item delete from wishlist");
+					System.out.println("Enter Product Id : ");
+					int id1 = sc.nextInt();
+					wl = wlService.deleteProductByIdInWishList(id1);
+					System.out.println("Item Deleted From Cart");
 				}
-		        catch(WishListException e)
+				catch(WishListException e)
 				{
-			    System.err.println(e.getMessage());
+					System.err.println(e.getMessage());
 				}
-	            
-				
 				break;
+	            
 			case 3:
 				try
 				{
-					list=productService.findAllProductsInWishList();
-					for(WishList e:list)
-					{
-						System.out.println("Product Id:"+e.getProductId());
-					}
+					list = wlService.findAllProductsInWishList();
+					for(WishList w : list)
+						System.out.println("productId = "+w.getProductId());
 				}
 				catch(WishListException e)
 				{

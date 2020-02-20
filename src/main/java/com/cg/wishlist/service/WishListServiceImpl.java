@@ -24,12 +24,12 @@ public int addProductToWishList(WishList product) throws WishListException {
 }
 
 public List<WishList> findAllProductsInWishList() throws WishListException {
-	
+	return wlDao.findAllProductsInWishList();
 }
 
 public WishList deleteProductByIdInWishList(int productId) throws WishListException {
 	// TODO Auto-generated method stub
-	return wlDao.deleteProductByIdInCart(productId);
+	return wlDao.deleteProductInWishList(productId);
 }
 
 }
